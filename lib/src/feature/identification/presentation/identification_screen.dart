@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:irobot/src/common_widgets/responsive_center.dart';
 import 'package:irobot/src/constants/app_sizes.dart';
@@ -5,8 +8,25 @@ import 'package:irobot/src/localization/app_localizations_context.dart';
 import 'package:irobot/src/localization/string.hardcode.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
-class IdentificationScreen extends StatelessWidget {
+class IdentificationScreen extends StatefulWidget {
   const IdentificationScreen({super.key});
+
+  @override
+  State<IdentificationScreen> createState() => _IdentificationScreenState();
+}
+
+class _IdentificationScreenState extends State<IdentificationScreen> {
+  bool active = false;
+
+  @override
+  void initState() {
+    super.initState();
+    Timer(const Duration(seconds: 1), () {
+      setState(() {
+        active = true;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,25 +45,30 @@ class IdentificationScreen extends StatelessWidget {
                   children: [
                     Text('Estado del chip'.hardcoded),
                     gapW8,
-                    const Icon(Icons.check)
+                    active
+                        ? const Icon(Icons.check)
+                        : const CupertinoActivityIndicator(),
                   ],
                 ),
                 Row(
                   children: [
                     Text('Alarma automatica'.hardcoded),
                     gapW8,
-                    const Icon(Icons.check)
+                    active
+                        ? const Icon(Icons.check)
+                        : const CupertinoActivityIndicator(),
                   ],
                 ),
                 Text('Sonido de la alarma'.hardcoded),
                 SfSlider(
                   min: 0.0,
                   max: 100.0,
-                  value: 60,
+                  value: active ? 60 : 0,
                   showDividers: true,
-                  // shouldAlwaysShowTooltip: true,
                   tooltipShape: const SfPaddleTooltipShape(),
-                  thumbIcon: const Center(child: Text('60')),
+                  thumbIcon: active
+                      ? const Center(child: Text('60'))
+                      : const CupertinoActivityIndicator(),
                   showTicks: true,
                   showLabels: true,
                   minorTicksPerInterval: 1,
