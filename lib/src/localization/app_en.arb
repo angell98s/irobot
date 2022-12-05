@@ -1,0 +1,9 @@
+{
+    "@@locale": "en",
+    "scanning": "scanning",
+    "identi_percep": "identificacion/perception",
+    "select_recogn": "selection/recognise",
+    "unders_assimi": "understand/assimilate",
+    "regula_modify": "regulate/modify",
+    "fingerprint": "Recognising footprints"
+}
