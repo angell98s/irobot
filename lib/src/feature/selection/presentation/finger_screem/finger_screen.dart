@@ -96,11 +96,13 @@ class _FingerState extends State<Finger> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width >= Breakpoint.desktop
-        ? Breakpoint.desktop - 200
+    var width = MediaQuery.of(context).size.width >=
+            MediaQuery.of(context).size.height - kToolbarHeight
+        ? MediaQuery.of(context).size.height - kToolbarHeight - 150
         : MediaQuery.of(context).size.width >= Breakpoint.tablet
-            ? Breakpoint.tablet - 200
+            ? Breakpoint.tablet
             : MediaQuery.of(context).size.width;
+
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
