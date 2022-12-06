@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:irobot/src/common_widgets/responsive_center.dart';
+import 'package:irobot/src/constants/app_sizes.dart';
+import 'package:irobot/src/constants/breakpoints.dart';
 import 'package:irobot/src/localization/app_localizations_context.dart';
 
 class FingerScreen extends StatelessWidget {
@@ -21,8 +24,13 @@ class FingerScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(context.loc.fingerprint.toUpperCase())),
       backgroundColor: const Color.fromARGB(255, 123, 201, 146),
-      body: const Center(
-        child: Finger(),
+      body: const CustomScrollView(
+        slivers: [
+          ResponsiveSliverCenter(
+            padding: EdgeInsets.all(Sizes.p16),
+            child: Finger(),
+          ),
+        ],
       ),
     );
     // }
@@ -88,7 +96,11 @@ class _FingerState extends State<Finger> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width - 50;
+    var width = MediaQuery.of(context).size.width >= Breakpoint.desktop
+        ? Breakpoint.desktop - 200
+        : MediaQuery.of(context).size.width >= Breakpoint.tablet
+            ? Breakpoint.tablet - 200
+            : MediaQuery.of(context).size.width;
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
