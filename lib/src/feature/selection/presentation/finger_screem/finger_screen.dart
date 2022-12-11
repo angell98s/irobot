@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:irobot/src/common_widgets/responsive_center.dart';
 import 'package:irobot/src/constants/app_sizes.dart';
 import 'package:irobot/src/constants/breakpoints.dart';
 import 'package:irobot/src/localization/app_localizations_context.dart';
+import 'package:irobot/src/routing/app_router.dart';
 
 class FingerScreen extends StatelessWidget {
   const FingerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // int a = Random().nextInt(10);
-    // Future.delayed(
-    //   Duration.zero,
-    //   () => showDialog<bool>(
-    //     context: context,
-    //     barrierDismissible: false,
-    //     builder: (context) => const LocalizationScreen(),
-    //   ),
-    // );
-    // if (a % 2 == 0) {
-    //   return const Scaffold();
-    // } else {
     return Scaffold(
-      appBar: AppBar(title: Text(context.loc.fingerprint.toUpperCase())),
+      appBar: AppBar(
+        title: Text(context.loc.fingerprint.toUpperCase()),
+        leading: GestureDetector(
+          onTap: () => context.goNamed(AppRoute.home.name),
+          child: const Icon(Icons.arrow_back_rounded),
+        ),
+      ),
       backgroundColor: const Color.fromARGB(255, 123, 201, 146),
       body: const CustomScrollView(
         slivers: [
@@ -33,7 +29,6 @@ class FingerScreen extends StatelessWidget {
         ],
       ),
     );
-    // }
   }
 }
 
