@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:irobot/src/common_widgets/responsive_center.dart';
 import 'package:irobot/src/constants/app_sizes.dart';
 import 'package:irobot/src/constants/breakpoints.dart';
+import 'package:irobot/src/constants/text_styles.dart';
 import 'package:irobot/src/localization/app_localizations_context.dart';
-import 'package:irobot/src/localization/string.hardcode.dart';
 import 'package:irobot/src/routing/app_router.dart';
 
 class SelectionScreen extends StatefulWidget {
@@ -17,57 +17,57 @@ class SelectionScreen extends StatefulWidget {
 
 class _SelectionScreenState extends State<SelectionScreen> {
   alegria(BuildContext context) => CheckBoxGeneral(
-        title: 'Alegria'.hardcoded,
+        title: context.loc.joy,
         checkBoxState: [
-          CheckBoxState(subtitle: 'Ilusión'.hardcoded),
-          CheckBoxState(subtitle: 'Admiración'.hardcoded),
-          CheckBoxState(subtitle: 'Amor'.hardcoded),
-          CheckBoxState(subtitle: 'Éxtasis'.hardcoded),
+          CheckBoxState(subtitle: context.loc.delusion),
+          CheckBoxState(subtitle: context.loc.admiration),
+          CheckBoxState(subtitle: context.loc.love),
+          CheckBoxState(subtitle: context.loc.ecstasy),
         ],
       );
   tristeza(BuildContext context) => CheckBoxGeneral(
-        title: 'Tristeza'.hardcoded,
+        title: context.loc.sadness,
         checkBoxState: [
-          CheckBoxState(subtitle: 'Soledad'.hardcoded),
-          CheckBoxState(subtitle: 'Derrota'.hardcoded),
-          CheckBoxState(subtitle: 'Desamor'.hardcoded),
-          CheckBoxState(subtitle: 'Desamparo'.hardcoded),
+          CheckBoxState(subtitle: context.loc.loneliness),
+          CheckBoxState(subtitle: context.loc.defeat),
+          CheckBoxState(subtitle: context.loc.heartbreak),
+          CheckBoxState(subtitle: context.loc.abandonment),
         ],
       );
   ira(BuildContext context) => CheckBoxGeneral(
-        title: 'Ira'.hardcoded,
+        title: context.loc.rage,
         checkBoxState: [
-          CheckBoxState(subtitle: 'Rebeldía'.hardcoded),
-          CheckBoxState(subtitle: 'Impaciencia'.hardcoded),
-          CheckBoxState(subtitle: 'Rencor'.hardcoded),
-          CheckBoxState(subtitle: 'Impotencia'.hardcoded),
+          CheckBoxState(subtitle: context.loc.rebellion),
+          CheckBoxState(subtitle: context.loc.impatience),
+          CheckBoxState(subtitle: context.loc.resentment),
+          CheckBoxState(subtitle: context.loc.impatience),
         ],
       );
   miedo(BuildContext context) => CheckBoxGeneral(
-        title: 'Miedo'.hardcoded,
+        title: context.loc.scary,
         checkBoxState: [
-          CheckBoxState(subtitle: 'Inseguridad'.hardcoded),
-          CheckBoxState(subtitle: 'Confusión'.hardcoded),
-          CheckBoxState(subtitle: 'Horror'.hardcoded),
-          CheckBoxState(subtitle: 'Terror'.hardcoded),
+          CheckBoxState(subtitle: context.loc.unsafety),
+          CheckBoxState(subtitle: context.loc.confusion),
+          CheckBoxState(subtitle: context.loc.horror),
+          CheckBoxState(subtitle: context.loc.terror),
         ],
       );
   asco(BuildContext context) => CheckBoxGeneral(
-        title: 'Asco'.hardcoded,
+        title: context.loc.disgust,
         checkBoxState: [
-          CheckBoxState(subtitle: 'Repulsión'.hardcoded),
-          CheckBoxState(subtitle: 'Aversión'.hardcoded),
-          CheckBoxState(subtitle: 'Desagrado'.hardcoded),
-          CheckBoxState(subtitle: 'Incomodidad'.hardcoded),
+          CheckBoxState(subtitle: context.loc.repulsion),
+          CheckBoxState(subtitle: context.loc.aversion),
+          CheckBoxState(subtitle: context.loc.repugnance),
+          CheckBoxState(subtitle: context.loc.discomfort),
         ],
       );
   sorpresa(BuildContext context) => CheckBoxGeneral(
-        title: 'Sorpresa'.hardcoded,
+        title: context.loc.surprise,
         checkBoxState: [
-          CheckBoxState(subtitle: 'Euforia'.hardcoded),
-          CheckBoxState(subtitle: 'Asombro'.hardcoded),
-          CheckBoxState(subtitle: 'Triunfo'.hardcoded),
-          CheckBoxState(subtitle: 'Adoración'.hardcoded),
+          CheckBoxState(subtitle: context.loc.euphoria),
+          CheckBoxState(subtitle: context.loc.astonishment),
+          CheckBoxState(subtitle: context.loc.triumph),
+          CheckBoxState(subtitle: context.loc.devotion),
         ],
       );
 
@@ -138,9 +138,16 @@ class _SelectionScreenState extends State<SelectionScreen> {
             ),
           ),
           ResponsiveSliverCenter(
-            child: TextButton(
-              child: Text('Siguiente'.hardcoded),
-              onPressed: () => context.goNamed(AppRoute.fingerprint.name),
+            child: Column(
+              children: [
+                TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                  ),
+                  child: Text(context.loc.next),
+                  onPressed: () => context.goNamed(AppRoute.fingerprint.name),
+                ),
+              ],
             ),
           ),
         ],
@@ -180,10 +187,8 @@ class _CheckBoxListWithTitleState extends State<CheckBoxListWithTitle> {
           }),
           child: Text(
             widget.checkBoxGeneral.title,
-            style: const TextStyle(
-              // color: Color(0xffff9900),
+            style: AppTextStyles.h2(context).copyWith(
               decoration: TextDecoration.underline,
-              fontSize: 24.0,
             ),
           ),
         ),
@@ -206,7 +211,12 @@ class _CheckBoxListWithTitleState extends State<CheckBoxListWithTitle> {
         controlAffinity: ListTileControlAffinity.leading,
         activeColor: Colors.red,
         value: checkBoxState.value,
-        title: Text(checkBoxState.subtitle),
+        title: Text(
+          checkBoxState.subtitle,
+          style: AppTextStyles.h3(context).copyWith(
+            decoration: TextDecoration.underline,
+          ),
+        ),
         onChanged: (value) => setState(
           () => checkBoxState.value = value!,
         ),

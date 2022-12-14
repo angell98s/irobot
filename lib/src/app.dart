@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irobot/src/localization/app_localizations_context.dart';
 import 'package:irobot/src/routing/app_router.dart';
 
 class MyApp extends ConsumerWidget {
@@ -13,7 +14,7 @@ class MyApp extends ConsumerWidget {
       title: 'Flutter Demo',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: const Locale('en'),
+      locale: ref.watch(localizationProvider),
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
           centerTitle: true,

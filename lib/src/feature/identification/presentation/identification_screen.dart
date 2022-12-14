@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:irobot/src/common_widgets/responsive_center.dart';
 import 'package:irobot/src/constants/app_sizes.dart';
+import 'package:irobot/src/constants/text_styles.dart';
 import 'package:irobot/src/localization/app_localizations_context.dart';
-import 'package:irobot/src/localization/string.hardcode.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class IdentificationScreen extends StatefulWidget {
@@ -30,6 +30,7 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var h1 = AppTextStyles.h1(context);
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 123, 201, 146),
       appBar: AppBar(title: Text(context.loc.identi_percep.toUpperCase())),
@@ -43,23 +44,38 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
               children: [
                 Row(
                   children: [
-                    Text('Estado del chip'.hardcoded),
+                    Text(
+                      context.loc.chipStatus,
+                      style: h1,
+                    ),
                     gapW8,
                     active
-                        ? const Icon(Icons.check)
+                        ? const Icon(
+                            Icons.check,
+                            size: 60,
+                          )
                         : const CupertinoActivityIndicator(),
                   ],
                 ),
                 Row(
                   children: [
-                    Text('Alarma automatica'.hardcoded),
+                    Text(
+                      context.loc.automaticAlarm,
+                      style: h1,
+                    ),
                     gapW8,
                     active
-                        ? const Icon(Icons.check)
+                        ? const Icon(
+                            Icons.check,
+                            size: 60,
+                          )
                         : const CupertinoActivityIndicator(),
                   ],
                 ),
-                Text('Sonido de la alarma'.hardcoded),
+                Text(
+                  context.loc.alarmSound,
+                  style: h1,
+                ),
                 SfSlider(
                   min: 0.0,
                   max: 100.0,
@@ -77,7 +93,10 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
                 gapH16,
                 Row(
                   children: [
-                    Text('Señal encontrada'.hardcoded),
+                    Text(
+                      context.loc.signalFound,
+                      style: h1,
+                    ),
                     gapW8,
                     Container(
                       decoration: BoxDecoration(
@@ -85,7 +104,10 @@ class _IdentificationScreenState extends State<IdentificationScreen> {
                         // borderRadius:
                         //     const BorderRadius.all(Radius.circular(50)),
                       ),
-                      child: const Text('1'),
+                      child: Text(
+                        '1',
+                        style: h1,
+                      ),
                     )
                   ],
                 ),

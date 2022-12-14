@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:irobot/src/common_widgets/responsive_center.dart';
 import 'package:irobot/src/constants/app_sizes.dart';
+import 'package:irobot/src/constants/text_styles.dart';
 import 'package:irobot/src/localization/app_localizations_context.dart';
-import 'package:irobot/src/localization/string.hardcode.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class RegulateScreen extends StatelessWidget {
@@ -23,10 +23,20 @@ class RegulateScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('Solicitud de video'.hardcoded),
+                  Text(
+                    context.loc.videoCallRequest,
+                    style: AppTextStyles.h2(context),
+                  ),
                   gapH16,
-                  const Text('Estrategias afsdasdkasl'),
-                  const Youtube()
+                  Text(
+                    context.loc.strategies,
+                    style: AppTextStyles.h2(context),
+                  ),
+                  const Youtube(),
+                  Text(
+                    context.loc.seeSocSup,
+                    style: AppTextStyles.h3(context),
+                  ),
                 ],
               ),
             ),
