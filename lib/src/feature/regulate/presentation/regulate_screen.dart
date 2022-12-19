@@ -19,7 +19,6 @@ class RegulateScreen extends StatelessWidget {
       RegulateBoxState(title: context.loc.relPleDis),
       RegulateBoxState(title: context.loc.actHapWri),
     ];
-    var ee = false;
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 123, 201, 146),
@@ -127,18 +126,14 @@ class _YoutubeState extends State<Youtube> {
     super.initState();
     _controller = YoutubePlayerController(
       params: const YoutubePlayerParams(
-        autoPlay: false,
         showControls: true,
         mute: false,
         showFullscreenButton: true,
         loop: false,
       ),
-    )
-      ..onInit = () {
+    )..onInit = () {
         _controller.loadVideoById(videoId: 'eu-2iWv_fCM');
-      }
-      ..onFullscreenChange = (isFullScreen) {
-        print('${isFullScreen ? 'Entered' : 'Exited'} Fullscreen.');
+        _controller.stopVideo();
       };
   }
 
