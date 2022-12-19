@@ -40,7 +40,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
           CheckBoxState(subtitle: context.loc.rebellion),
           CheckBoxState(subtitle: context.loc.impatience),
           CheckBoxState(subtitle: context.loc.resentment),
-          CheckBoxState(subtitle: context.loc.impatience),
+          CheckBoxState(subtitle: context.loc.impotence),
         ],
       );
   miedo(BuildContext context) => CheckBoxGeneral(
