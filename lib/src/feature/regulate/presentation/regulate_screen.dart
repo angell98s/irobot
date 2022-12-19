@@ -35,17 +35,30 @@ class RegulateScreen extends StatelessWidget {
               elevation: 10,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  context.loc.videoCallRequest,
+                  style: AppTextStyles.h1(context),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
+          ResponsiveSliverCenter(
+            padding: const EdgeInsets.all(Sizes.p16),
+            child: Card(
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              elevation: 10,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      context.loc.videoCallRequest,
-                      style: AppTextStyles.h1(context),
-                    ),
-                    gapH16,
-                    Text(
                       context.loc.strategies,
-                      style: AppTextStyles.h2(context),
+                      style: AppTextStyles.h1(context),
                     ),
                     ListView(
                       shrinkWrap: true,
