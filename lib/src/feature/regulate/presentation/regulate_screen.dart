@@ -10,39 +10,104 @@ class RegulateScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<RegulateBoxState> regulateLst = [
+      RegulateBoxState(title: context.loc.seeSocSup),
+      RegulateBoxState(title: context.loc.posRea),
+      RegulateBoxState(title: context.loc.actConDis),
+      RegulateBoxState(title: context.loc.rumNegApp),
+      RegulateBoxState(title: context.loc.ratCogDis, value: true),
+      RegulateBoxState(title: context.loc.relPleDis),
+      RegulateBoxState(title: context.loc.actHapWri),
+    ];
+    var ee = false;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 123, 201, 146),
       appBar: AppBar(title: Text(context.loc.regula_modify.toUpperCase())),
-      body: ResponsiveCenter(
-        padding: const EdgeInsets.all(Sizes.p16),
-        child: Column(
-          children: [
-            Card(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    context.loc.videoCallRequest,
-                    style: AppTextStyles.h2(context),
-                  ),
-                  gapH16,
-                  Text(
-                    context.loc.strategies,
-                    style: AppTextStyles.h2(context),
-                  ),
-                  const Youtube(),
-                  Text(
-                    context.loc.seeSocSup,
-                    style: AppTextStyles.h3(context),
-                  ),
-                ],
+      body: CustomScrollView(
+        slivers: [
+          ResponsiveSliverCenter(
+            padding: const EdgeInsets.all(Sizes.p16),
+            child: Card(
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              elevation: 10,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      context.loc.videoCallRequest,
+                      style: AppTextStyles.h1(context),
+                    ),
+                    gapH16,
+                    Text(
+                      context.loc.strategies,
+                      style: AppTextStyles.h2(context),
+                    ),
+                    ListView(
+                      shrinkWrap: true,
+                      children: regulateLst
+                          .map((e) => Strategies(regulateBoxState: e))
+                          .toList(),
+                    )
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
+    );
+  }
+}
+
+class Strategies extends StatefulWidget {
+  const Strategies({
+    super.key,
+    required this.regulateBoxState,
+  });
+
+  final RegulateBoxState regulateBoxState;
+
+  @override
+  State<Strategies> createState() => _Strategies();
+}
+
+class _Strategies extends State<Strategies> {
+  bool active = false;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GestureDetector(
+          onTap: () async => setState(() {
+            active = !active;
+          }),
+          child: Row(
+            children: [
+              Text(
+                '-',
+                style: AppTextStyles.h3(context),
+              ),
+              gapW16,
+              Expanded(
+                child: Text(
+                  widget.regulateBoxState.title,
+                  style: AppTextStyles.h3(context),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ),
+            ],
+          ),
+        ),
+        if (widget.regulateBoxState.value && active) const Youtube()
+      ],
     );
   }
 }
@@ -62,6 +127,7 @@ class _YoutubeState extends State<Youtube> {
     super.initState();
     _controller = YoutubePlayerController(
       params: const YoutubePlayerParams(
+        autoPlay: false,
         showControls: true,
         mute: false,
         showFullscreenButton: true,
@@ -91,4 +157,13 @@ class _YoutubeState extends State<Youtube> {
     _controller.close();
     super.dispose();
   }
+}
+
+class RegulateBoxState {
+  RegulateBoxState({
+    required this.title,
+    this.value = false,
+  });
+  final String title;
+  bool value;
 }
