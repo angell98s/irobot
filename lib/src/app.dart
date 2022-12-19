@@ -23,6 +23,7 @@ class MyApp extends ConsumerWidget {
         backgroundColor: const Color.fromARGB(255, 123, 201, 146),
       ),
       themeMode: ThemeMode.light,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
