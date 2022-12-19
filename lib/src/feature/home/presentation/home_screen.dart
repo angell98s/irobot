@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -21,9 +23,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!ref.watch(dialogProvider)) {
+      if (!ref.watch(dialogProvider) && document.cookie!.isEmpty) {
         showDialog(
           context: context,
           barrierDismissible: false,
@@ -35,10 +36,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             children: [
               GestureDetector(
                 onTap: () {
+                  Locale locale = const Locale('es');
                   ref.read(dialogProvider.notifier).update((state) => true);
                   ref
                       .read(localizationProvider.notifier)
-                      .update((state) => const Locale('es'));
+                      .update((state) => locale);
+                  document.cookie = locale.toLanguageTag();
                   Navigator.pop(context);
                 },
                 child: Container(
@@ -54,10 +57,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
               GestureDetector(
                 onTap: () {
+                  Locale locale = const Locale('en');
                   ref.read(dialogProvider.notifier).update((state) => true);
                   ref
                       .read(localizationProvider.notifier)
-                      .update((state) => const Locale('en'));
+                      .update((state) => locale);
+                  document.cookie = locale.toLanguageTag();
                   Navigator.pop(context);
                 },
                 child: Container(
@@ -108,7 +113,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       onpressed: () => context.pushNamed(AppRoute.regulate.name),
     );
     print(ref.watch(dialogProvider));
-    return !ref.watch(dialogProvider)
+    return !ref.watch(dialogProvider) && document.cookie!.isEmpty
         ? const Scaffold()
         : Scaffold(
             backgroundColor: const Color.fromARGB(255, 123, 201, 146),
